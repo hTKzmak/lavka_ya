@@ -7,9 +7,11 @@ const cartEl = document.querySelector('#cart')
 for (const prodEl of productElements) {
 
     // по событию "click" происходит добавление продукта в корзину
-    prodEl.addEventListener('click', () => {
-        addingToCart(prodEl)
-    })
+    if(window.innerWidth < 768){
+        prodEl.addEventListener('click', () => {
+            addingToCart(prodEl)
+        })
+    }
 
     prodEl.addEventListener('keydown', (evt) => {
         if (evt.key === 'Enter') {
