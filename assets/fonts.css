@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'YS Text';
-    src: url('./YS_Text-Medium.ttf') format('opentype');
-    font-style: medium;
-    font-weight: 500;
+    src: url('./YandexSansText-Medium.ttf') format('opentype');
+    /* font-style: medium;
+    font-weight: 500; */
 }
