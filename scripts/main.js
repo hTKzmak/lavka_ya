@@ -79,6 +79,7 @@ function addingToCart(product) {
         dropToCartAnim(product)
 
         const choosenProd = product;
+        choosenProd.tabIndex = '-1';
 
         // клонируем выбранный продукт в список покупок
         cartProdList.appendChild(choosenProd.cloneNode(true));
@@ -113,6 +114,7 @@ function dropToCartAnim(product) {
 
     // animProd - выбранный продукт, который будет перемещаться в корзину
     const animProd = product.cloneNode(true);
+    animProd.tabIndex = '-1';
     animProd.style = `
         position: absolute;
         top: ${document.querySelectorAll(`.product#${product.id}`)[0].getBoundingClientRect().y}px;
