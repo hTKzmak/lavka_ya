@@ -1,5 +1,3 @@
-// @import "../assets/fonts.css";
-
 @mixin positioner($position, $bottom, $left, $right) {
     position: $position;
     bottom: $bottom;
@@ -12,28 +10,32 @@
     text-align: center;
 }
 
+// анимация для кнопки: изменение заднего фона
 @keyframes flavours {
     to {
         background-position: 0 -1000vh;
     }
 }
 
+// анимация для товаров: возврат на место
 @keyframes fadeIn {
     to {
-        transform: translateY(0); /* Возврат на место */
+        transform: translateY(0);
     }
 }
 
+// анимация для тележки: для позиционирования по центру
 @keyframes toCenter {
     to {
         @include positioner(absolute, 0, 0, 0);
     }
 }
 
-// !!!!!!
+
+// анимация для выбранного товара: перемещает его в тележку
 @keyframes toCart {
     to {
-        top: 80%;
+        top: calc(100vh - 175px);
         left: 49.4%;
     }
 }
@@ -65,7 +67,7 @@ body {
             @include positioner(absolute, 45px, 15px, 0);
 
             img {
-                margin-right: -10px;
+                margin-right: -13px;
             }
         }
     }

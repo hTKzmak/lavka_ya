@@ -6,7 +6,7 @@
 }
 @keyframes fadeIn {
   to {
-    transform: translateY(0); /* Возврат на место */
+    transform: translateY(0);
   }
 }
 @keyframes toCenter {
@@ -22,7 +22,7 @@
 }
 @keyframes toCart {
   to {
-    top: 80%;
+    top: calc(100vh - 175px);
     left: 49.4%;
   }
 }
@@ -60,7 +60,7 @@ body .cart-element .products {
   text-align: center;
 }
 body .cart-element .products img {
-  margin-right: -10px;
+  margin-right: -13px;
 }
 body .lavka-with-products {
   position: relative;

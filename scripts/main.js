@@ -1,4 +1,4 @@
-// main.js - файл для работы с Drag and drop
+// main.js - файл для работы с Drag and drop и отправкой товара в корзину для ПК, смартфонов и планшетов
 
 // Находим все продукты 
 const productElements = document.querySelectorAll(`.product`);
@@ -38,12 +38,10 @@ for (const prodEl of productElements) {
 
 
     // по событию "click" происходит добавление продукта в корзину
-    if (window.innerWidth < 768) {
-        prodEl.addEventListener('click', () => {
-            addingToCart(prodEl)
-        })
-    }
-    
+    prodEl.addEventListener('click', () => {
+        addingToCart(prodEl)
+    })
+
     // по событию "keydown" происходит добавление продукта в корзину
     // нужно это для доступности использования сайтом, выбирая продукты и переходя по ссылке через Tab и Enter
     prodEl.addEventListener('keydown', (evt) => {
@@ -119,6 +117,7 @@ function dropToCartAnim(product) {
         position: absolute;
         top: ${document.querySelectorAll(`.product#${product.id}`)[0].getBoundingClientRect().y}px;
         left: ${document.querySelectorAll(`.product#${product.id}`)[0].getBoundingClientRect().x}px;
+        z-index: 1;
         animation: toCart 0.9s forwards;
     `
 
