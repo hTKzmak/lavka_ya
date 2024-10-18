@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import "../assets/fonts.css";
 @keyframes flavours {
   to {
     background-position: 0 -1000vh;
@@ -19,6 +18,12 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+  }
+}
+@keyframes toCart {
+  to {
+    top: 80%;
+    left: 49.4%;
   }
 }
 body {
@@ -94,7 +99,7 @@ body .lavka-with-products .all-products .products-list {
 }
 body .lavka-with-products .all-products .products-list img {
   transform: translateY(-100vh);
-  animation: fadeIn 0.9s forwards; /* Анимация  появления продуктов */
+  animation: fadeIn 0.9s forwards; /* Анимация появления продуктов */
   width: auto;
   z-index: 1;
   cursor: grab;

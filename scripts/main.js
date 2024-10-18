@@ -9,8 +9,7 @@ const cartProdList = document.querySelector('.products');
 // Находим caty-element
 const cartElement = document.querySelector('.cart-element');
 
-// находим картинку тележки
-const cartImg = document.getElementById("cart");
+
 
 
 // при перетаскивании у выбранного объекта будет класс selected
@@ -27,7 +26,7 @@ const removeSelect = (evt) => {
     }
 }
 
-// Перебираем все элементы списка продуктов и присваиваем нужное значение
+// Перебираем все элементы списка продуктов и присваиваем нужные события
 for (const prodEl of productElements) {
     prodEl.draggable = true;
 
@@ -36,6 +35,22 @@ for (const prodEl of productElements) {
 
     // событие удаления класса selected
     prodEl.addEventListener('dragend', removeSelect)
+
+
+    // по событию "click" происходит добавление продукта в корзину
+    if (window.innerWidth < 768) {
+        prodEl.addEventListener('click', () => {
+            addingToCart(prodEl)
+        })
+    }
+    
+    // по событию "keydown" происходит добавление продукта в корзину
+    // нужно это для доступности использования сайтом, выбирая продукты и переходя по ссылке через Tab и Enter
+    prodEl.addEventListener('keydown', (evt) => {
+        if (evt.key === 'Enter') {
+            addingToCart(prodEl)
+        }
+    })
 }
 
 
@@ -53,33 +68,69 @@ const handleDrop = (evt) => {
 
     // добавляем продукт
     addingToCart(activeElement)
-
-    // отображаем кнопку для перехода на Yandex Лавку
-    document.querySelector('.button-link').style.bottom = cartProdList.childElementCount > 2 ? '20px' : '-100vh';
 }
 
 // Фукнкция по добавлению товара в корзину
 function addingToCart(product) {
+
+    console.log(cartProdList.childElementCount < 3, cartProdList.childElementCount)
+
+    // продукты будут перемещаться в корзину, пока список продуктов меньше 3
     if (cartProdList.childElementCount < 3) {
-        document.querySelector('.button-link').style.bottom = '-100vh';
+        // воспроизведение анимации
+        dropToCartAnim(product)
+
+        const choosenProd = product;
 
         // клонируем выбранный продукт в список покупок
-        cartProdList.appendChild(product.cloneNode(true));
+        cartProdList.appendChild(choosenProd.cloneNode(true));
 
-        // даём время на отслеживание изменений, чтобы убрать продукт с лавки
+        // делаем продукт в корзине невидимым (это нужно для эффекта добавления продукта в корзину)
+        document.querySelectorAll(`.product#${product.id}`)[1].style.opacity = '0';
+
+        // делаем продукт в корзине видимым
         setTimeout(() => {
-            document.querySelectorAll(`.product#${product.id}`)[0].style = `
-                opacity: 0;
-                pointer-events: none;
-            `
-        }, 0)
+            document.querySelectorAll(`.product#${product.id}`)[1].style.opacity = '1';
+        }, 1000)
     }
 
-    document.querySelector('.button-link').style.bottom = cartProdList.childElementCount > 2 ? '20px' : '-100vh';
-    document.querySelector('.button-link').tabIndex = cartProdList.childElementCount > 2 ? '0' : '-1';
+    // отображаем кнопку через некоторое время после добавления 3-х продуктов
+    setTimeout(() => {
+        document.querySelector('.button-link').style.bottom = cartProdList.childElementCount > 2 ? '20px' : '-100vh';
+        document.querySelector('.button-link').tabIndex = cartProdList.childElementCount > 2 ? '0' : '-1';
+    }, 800)
 }
 
+// функция для воспроизведения анимации по перемещению выбранного продукта в корзину
+function dropToCartAnim(product) {
+    console.log(cartProdList.childElementCount)
 
-// Устанавливаем события для корзины (cartElement)
+    // даём время на отслеживание изменений, чтобы убрать продукт с лавки
+    setTimeout(() => {
+        document.querySelectorAll(`.product#${product.id}`)[0].style = `
+                    opacity: 0;
+                    pointer-events: none;
+                    `
+    }, 0)
+
+    // animProd - выбранный продукт, который будет перемещаться в корзину
+    const animProd = product.cloneNode(true);
+    animProd.style = `
+        position: absolute;
+        top: ${document.querySelectorAll(`.product#${product.id}`)[0].getBoundingClientRect().y}px;
+        left: ${document.querySelectorAll(`.product#${product.id}`)[0].getBoundingClientRect().x}px;
+        animation: toCart 0.9s forwards;
+    `
+
+    document.body.appendChild(animProd)
+
+    // через некоторое время удаляем, так как сам продукт будет в корзине
+    setTimeout(() => {
+        animProd.remove();
+    }, 1000)
+
+}
+
+// Устанавливаем события для .cart-element
 cartElement.addEventListener('dragover', handleDragOver);
 cartElement.addEventListener('drop', handleDrop);

@@ -1,4 +1,4 @@
-@import "../assets/fonts.css";
+// @import "../assets/fonts.css";
 
 @mixin positioner($position, $bottom, $left, $right) {
     position: $position;
@@ -27,6 +27,14 @@
 @keyframes toCenter {
     to {
         @include positioner(absolute, 0, 0, 0);
+    }
+}
+
+// !!!!!!
+@keyframes toCart {
+    to {
+        top: 80%;
+        left: 49.4%;
     }
 }
 
@@ -86,16 +94,14 @@ body {
             .products-list {
                 position: absolute;
 
-                
                 img {
                     transform: translateY(-100vh);
-                    animation: fadeIn 0.9s forwards; /* Анимация  появления продуктов */
+                    animation: fadeIn 0.9s forwards; /* Анимация появления продуктов */
 
                     width: auto;
                     z-index: 1;
 
                     cursor: grab;
-
 
                     &:nth-child(1) {
                         animation-delay: 1s;
