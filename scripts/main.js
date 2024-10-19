@@ -26,8 +26,9 @@ const removeSelect = (evt) => {
     }
 }
 
-// Перебираем все элементы списка продуктов и присваиваем нужные события
+// Перебираем все элементы списка продуктов и присваиваем им нужные события
 for (const prodEl of productElements) {
+    // разрешаем перетаскивание
     prodEl.draggable = true;
 
     // событие добавления класса selected
@@ -62,6 +63,7 @@ const handleDragOver = (evt) => {
 const handleDrop = (evt) => {
     evt.preventDefault();
 
+    // находим выбранный продукт
     const activeElement = document.querySelector('.selected');
 
     // добавляем продукт
@@ -71,14 +73,15 @@ const handleDrop = (evt) => {
 // Фукнкция по добавлению товара в корзину
 function addingToCart(product) {
 
-    console.log(cartProdList.childElementCount < 3, cartProdList.childElementCount)
-
     // продукты будут перемещаться в корзину, пока список продуктов меньше 3
     if (cartProdList.childElementCount < 3) {
         // воспроизведение анимации
         dropToCartAnim(product)
 
+        // выбранный продукт
         const choosenProd = product;
+
+        // ставим -1 для выбранного продукта, чтобы мы его не могли выбирать при использовании Tab
         choosenProd.tabIndex = '-1';
 
         // клонируем выбранный продукт в список покупок
@@ -102,8 +105,7 @@ function addingToCart(product) {
 
 // функция для воспроизведения анимации по перемещению выбранного продукта в корзину
 function dropToCartAnim(product) {
-    console.log(cartProdList.childElementCount)
-
+    
     // даём время на отслеживание изменений, чтобы убрать продукт с лавки
     setTimeout(() => {
         document.querySelectorAll(`.product#${product.id}`)[0].style = `

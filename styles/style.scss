@@ -57,7 +57,9 @@ body {
         #cart {
             @include positioner(absolute, 0, -200vw, 0);
             z-index: 1000;
-            animation: toCenter 0.9s forwards; /* Анимация появления тележки */
+
+            /* Анимация появления тележки */
+            animation: toCenter 0.9s forwards;
         }
 
         .products {
@@ -98,7 +100,9 @@ body {
 
                 img {
                     transform: translateY(-100vh);
-                    animation: fadeIn 0.9s forwards; /* Анимация появления продуктов */
+
+                    /* Анимация появления продуктов */
+                    animation: fadeIn 0.9s forwards;
 
                     width: auto;
                     z-index: 1;
